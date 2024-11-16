@@ -3,7 +3,11 @@ import TicTacToe from './Components/TicTacToe'
 function App() {
 
   return (
-     <TicTacToe />
+      <>
+        {/*Add Image of Dead Cat*/}
+        <TicTacToe />
+        {/*Add Image of Alive Cat*/}
+      </>
   )
 }
 
