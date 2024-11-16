@@ -1,14 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Pixel-style font */
 
 :root {
-    --background-color: #101820; /* Dark retro background */
-    --primary-color: rgba(0, 255, 255, 0.51); /* Cyan glow for grid hover */
+    --background-color: #df8afb; /* Dark retro background */
+    --background-color2: #410bac;
+    --primary-color: rgb(255, 248, 248); /* Cyan glow for grid hover */
     --secondary-color: #333333; /* Grid border color */
-    --accent-color: #ffcc00; /* Reset button color */
-    --winning-color: #ff5733; /* Highlight winning color */
-    --blocked-color: #555555; /* Blocked cell color */
+    --accent-color: rgba(0, 255, 255, 0.5); /* Reset button color */
+    --winning-cross-color: #e43843;
+    --winning-ball-color: rgb(13, 129, 172);
+    --blocked-color: rgba(95, 255, 0, 0.2); /* Blocked cell color */
     --font-color: #ffffff; /* Text color */
     --grid-size: 20vmin; /* Larger size for focus */
+    --game-color: #9608ef;
 }
 
 body {
@@ -17,7 +20,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--background-color);
+    background: linear-gradient(120deg, var(--background-color), var(--background-color2));
     font-family: 'Press Start 2P', sans-serif; /* Pixelated font */
     color: var(--font-color);
     overflow: hidden; /* Avoid scrollbars */
@@ -30,11 +33,11 @@ body {
     text-align: center;
     padding: 20px;
     border-radius: 8px;
-    background-color: #222831; /* Dark container background */
+    background-color: var(--game-color); /* Dark container background */
     border: 4px solid var(--primary-color);
     width: 90%;
     max-width: 600px;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); /* Retro glow */
+    box-shadow: 15px 15px 50px rgba(0, 255, 255, 0.5); /* Retro glow */
 }
 
 .winner-message,
@@ -68,36 +71,56 @@ body {
     text-align: center;
 }
 
-.grid-element:not(.blocked):not(.winning):hover {
+.grid-element:not(.blocked):not(.winCross):not(.winBall):hover {
     background-color: #191919;
 }
 
-.circle {
-    color: #e63946; /* Red for O */
+.cross {
+    color: #e63946;
 }
 
-.cross {
-    color: #0077b6; /* Blue for X */
+.circle {
+    color: rgb(21, 190, 255);
 }
 
 .superposition {
-    color: #ff9f1c; /* Yellow for S */
+    color: #ff9f1c;
 }
 
 .blocked {
-    background-color: var(--blocked-color);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ff0000; /* Red color for blocked symbol */
     cursor: not-allowed;
 }
 
-.winning {
-    background-color: var(--winning-color);
+.blocked::before {
+    content: '🪨';
+    font-size: calc(var(--grid-size) * 0.4);
+    color: #ff0000;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+}
+
+.winCross {
+    background-color: var(--winning-cross-color);
     color: #ffffff;
+    cursor: not-allowed;
+}
+
+.winBall {
+    background-color: var(--winning-ball-color);
+    color: #ffffff;
+    cursor: not-allowed;
 }
 
 .reset-button {
     background: var(--accent-color);
     border: 2px solid var(--primary-color);
-    color: #000000;
+    color: #fff8f8;
     padding: 12px 24px;
     font-size: 1rem;
     text-transform: uppercase;
@@ -106,15 +129,16 @@ body {
     width: 60%;
     max-width: 300px;
     border-radius: 4px;
-    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.5); /* Retro 3D effect */
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2); /* Retro 3D effect */
     transition: background-color 0.2s ease;
+    font-family: 'Press Start 2P', sans-serif;
 }
 
 .reset-button:hover {
-    background: #ffdd00; /* Slightly brighter yellow */
+    background: rgba(0, 220, 255, 0.5); /* Slightly brighter yellow */
 }
 
 .reset-button:active {
-    box-shadow: inset 0 4px 0 rgba(0, 0, 0, 0.5); /* Pressed 3D effect */
-    background: #e6b800; /* Darker yellow */
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2); /* Pressed 3D effect */
+    background: rgba(0, 190, 255, 0.5); /* Darker yellow */
 }

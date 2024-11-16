@@ -120,6 +120,7 @@ export default function TicTacToe() {
             index={index}
             onClick={() => handleClick(index)}
             isWinning={winningIndices.includes(index)}
+            winner={winner}
         />
     ));
 
@@ -133,9 +134,9 @@ export default function TicTacToe() {
     return (
         <div className="game-container">
             {winner && <div className="winner-message">{`IT IS ${winner === 1 ? 'ALIVE' : 'DEAD'}!`}</div>}
-            <div className="turn-message">
-                {winner ? '' : `IS IT ${isXNext ? 'DEAD' : 'ALIVE'}?`}
-            </div>
+            {!winner && <div className="turn-message">
+                {`IS IT ${isXNext ? 'DEAD' : 'ALIVE'}?`}
+            </div>}
             <div className="grid-container">
                 {gridElements}
             </div>
@@ -144,12 +145,20 @@ export default function TicTacToe() {
     );
 }
 
-function GridElement({ element, onClick, isWinning }) {
+function GridElement({ element, onClick, isWinning, winner }) {
+    let elementClass = '';
+
+    // Determine the class based on the element value
+    if (element === 1) elementClass = 'circle';
+    else if (element === 2) elementClass = 'cross';
+    else if (element === 3) elementClass = 'superposition'; // superposition is for "S"
+    else if (element === 4) elementClass = 'blocked';
+
     return (
         <div
-            className={`grid-element ${element === 1 ? 'circle' : element === 2 ? 'cross' :
-                element === 3 ? 'superposition' : element === 4 ? 'blocked' : ''} 
-                        ${isWinning ? 'winning' : ''}`}
+            className={`grid-element ${elementClass} 
+                        ${isWinning && (element === 1 || element === 3) ? 'winBall' : ''} 
+                        ${isWinning && (element === 2 || element === 3) ? 'winCross' : ''}`}
             onClick={onClick}
         >
             {element === 1 ? 'O' : element === 2 ? 'X' : element === 3 ? 'S' : ''}
