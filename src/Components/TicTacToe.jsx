@@ -44,24 +44,30 @@ export default function TicTacToe() {
                 (grid[b] === 3 && grid[c] === 3 && (grid[a] === 1 || grid[a] === 2))) // Two are 3, third is 1 or 2
             )
             {
-                return { winner: isXNext ? 2 : 1, indices: combination };
+                if (grid[a] === 1 || grid[b] === 1 || grid[c] === 1) {
+                    return { winner: 1, indices: combination };
+                }
+
+                if (grid[a] === 2 || grid[b] === 2 || grid[c] === 2) {
+                    return { winner: 2, indices: combination };
+                }
             }
         }
         return null;
     };
 
     useEffect(() => {
-        if (winner) return; // Exit early if there's a winner
+        if (winner || grid.every(element => element === 0)) return; // Exit early if there's a winner or if it is starting
 
         const randomEffect = () => {
             const index = Math.floor(Math.random() * grid.length);
             const change = getRandomChange();
 
             function getRandomChange() {
-                if (grid.filter(entry => entry === 0).length <= 2) return 1; // Force change if all, but 2 entries are non-zero
+                if (grid.filter(entry => entry === 0).length <= 3) return 1; // Force change if all, but 3 entries are non-zero
 
                 const possibleChanges = [0, 1, 2];
-                const weights = [6, 3, 1]; // Chances!!!
+                const weights = [3, 4, 3]; // Chances!!!
                 const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
                 const random = Math.floor(Math.random() * totalWeight);
 
@@ -78,25 +84,34 @@ export default function TicTacToe() {
             return [index, change];
         };
 
-        const timerId = setInterval(() => {
-            const [index, newEffect] = randomEffect();
+        const [index, newEffect] = randomEffect();
             if (newEffect === 1) {
-                setGrid(prevGrid => {
-                    const newGrid = [...prevGrid];
-                    newGrid[index] = prevGrid[index] === 0 ? 4 : 0; // Toggle between 0 and 4
-                    return newGrid;
-                });
+                const toggleGridValue = (index) => {
+                    setGrid(prevGrid => {
+                        const newGrid = [...prevGrid];
+                        newGrid[index] = prevGrid[index] === 0 ? 4 : 0;
+
+                        // Check if the grid is full and no winner exists
+                        const isGridFull = newGrid.every(element => element !== 0);
+                        if (winner === null && isGridFull) {
+                            // Re-run the logic on the same index to avoid draws
+                            newGrid[index] = newGrid[index] === 0 ? 4 : 0; // Toggle again
+                        }
+
+                        return newGrid;
+                    });
+                };
+
+                toggleGridValue(index);
             } else if (newEffect === 2) {
                 setGrid(prevGrid => {
                     const newGrid = [...prevGrid];
                     newGrid[index] = 3; // Toggle between 0 and 4
                     return newGrid;
                 });
-            }
-        }, 500);
+        }
 
-        return () => clearInterval(timerId);
-    }, [grid, winner]);
+    }, [isXNext, winner]);
 
     const gridElements = grid.map((element, index) => (
         <GridElement
