@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import './tictactoe.css';
 
-export default function TicTacToe() {
+export default function TicTacToe({ isMachine }) {
     const [grid, setGrid] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
-    const [isXNext, setIsXNext] = useState(true);
+    const [isXNext, setIsXNext] = useState(false);
     const [winner, setWinner] = useState(null);
     const [winningIndices, setWinningIndices] = useState([]);
 
     const handleClick = (index) => {
 
-        if (grid[index] !== 0 || winner) return;
+        if (grid[index] !== 0 || winner || (isMachine && isXNext)) return;
 
         const newGrid = [...grid];
         newGrid[index] = isXNext ? 2 : 1;
@@ -21,6 +21,22 @@ export default function TicTacToe() {
             setWinner(result.winner);
             setWinningIndices(result.indices);
         }
+    };
+
+    const handleComputer = (index) => {
+
+        if (grid[index] !== 0 || winner || (!isMachine && !isXNext)) return;
+
+            const newGrid = [...grid];
+            newGrid[index] = isXNext ? 2 : 1;
+            setGrid(newGrid);
+            setIsXNext(isXNext => !isXNext);
+
+            const result = checkWinner(newGrid);
+            if (result) {
+                setWinner(result.winner);
+                setWinningIndices(result.indices);
+            }
     };
 
     const checkWinner = (grid) => {
@@ -128,9 +144,33 @@ export default function TicTacToe() {
     const resetGame = () => {
         setGrid([0, 0, 0, 0, 0, 0, 0, 0, 0]);
         setWinner(null);
-        setIsXNext(true); // Start with Player X
+        setIsXNext(false); // Start with Player X
         setWinningIndices([]);
     };
+
+    useEffect(() => {
+        // If it's the computer's turn and the game is not over
+        if (isXNext && isMachine && !winner) {
+            const timeoutId = setTimeout(() => {
+                // Find an empty cell for the computer to play
+                const emptyCells = grid
+                    .map((value, index) => value === 0 ? index : null)
+                    .filter(index => index !== null);
+
+                // If there are empty cells, let the computer play
+                if (emptyCells.length > 0) {
+                    const index = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                    handleComputer(index); // The computer makes a move
+                }
+            }, 1000); // Delay for the computer to make its move (e.g., 1 second)
+
+            return () => clearTimeout(timeoutId);
+        }
+    }, [isXNext, isMachine, winner, grid]);
+
+    useEffect(() => {
+        resetGame();
+    }, [isMachine]);
 
     return (
         <div className="game-container">

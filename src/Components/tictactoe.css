@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Pixel-style font */
 
 :root {
-    --background-color: #df8afb; /* Dark retro background */
+    --background-color: #df8afb;
     --background-color2: #410bac;
-    --primary-color: rgb(255, 248, 248); /* Cyan glow for grid hover */
-    --secondary-color: #333333; /* Grid border color */
-    --accent-color: rgba(0, 255, 255, 0.5); /* Reset button color */
+    --primary-color: rgb(255, 248, 248);
+    --secondary-color: #333333;
+    --accent-color: rgba(0, 255, 255, 0.5);
     --winning-cross-color: #e43843;
     --winning-ball-color: rgb(13, 129, 172);
-    --blocked-color: rgba(95, 255, 0, 0.2); /* Blocked cell color */
-    --font-color: #ffffff; /* Text color */
-    --grid-size: 20vmin; /* Larger size for focus */
+    --blocked-color: rgba(95, 255, 0, 0.2);
+    --font-color: #ffffff;
+    --grid-size: 20vmin;
     --game-color: #9608ef;
 }
 
@@ -21,9 +21,17 @@ body {
     justify-content: center;
     align-items: center;
     background: linear-gradient(120deg, var(--background-color), var(--background-color2));
-    font-family: 'Press Start 2P', sans-serif; /* Pixelated font */
+    font-family: 'Press Start 2P', sans-serif;
     color: var(--font-color);
-    overflow: hidden; /* Avoid scrollbars */
+    overflow: hidden;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .game-container {
@@ -33,11 +41,11 @@ body {
     text-align: center;
     padding: 20px;
     border-radius: 8px;
-    background-color: var(--game-color); /* Dark container background */
+    background-color: var(--game-color);
     border: 4px solid var(--primary-color);
     width: 90%;
     max-width: 600px;
-    box-shadow: 15px 15px 50px rgba(0, 255, 255, 0.5); /* Retro glow */
+    box-shadow: 15px 15px 50px rgba(0, 255, 255, 0.5);
 }
 
 .winner-message,
@@ -45,6 +53,7 @@ body {
     margin-bottom: 16px;
     font-size: 1.5rem;
     color: var(--font-color);
+    transition: all 0.3s ease;
 }
 
 .grid-container {
@@ -69,6 +78,7 @@ body {
     cursor: pointer;
     border: 1px solid var(--secondary-color);
     text-align: center;
+    transition: all 0.3s ease;
 }
 
 .grid-element:not(.blocked):not(.winCross):not(.winBall):hover {
@@ -92,7 +102,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #ff0000; /* Red color for blocked symbol */
+    color: #ff0000;
     cursor: not-allowed;
 }
 
@@ -118,9 +128,9 @@ body {
 }
 
 .reset-button {
-    background: var(--accent-color);
+    background: var(--primary-color);
     border: 2px solid var(--primary-color);
-    color: #fff8f8;
+    color: var(--game-color);
     padding: 12px 24px;
     font-size: 1rem;
     text-transform: uppercase;
@@ -129,16 +139,50 @@ body {
     width: 60%;
     max-width: 300px;
     border-radius: 4px;
-    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2); /* Retro 3D effect */
-    transition: background-color 0.2s ease;
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2);
     font-family: 'Press Start 2P', sans-serif;
+    transition: all 0.3s ease;
 }
 
 .reset-button:hover {
-    background: rgba(0, 220, 255, 0.5); /* Slightly brighter yellow */
+    background-color: var(--accent-color);
+    color: var(--primary-color);
 }
 
 .reset-button:active {
-    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2); /* Pressed 3D effect */
-    background: rgba(0, 190, 255, 0.5); /* Darker yellow */
+    transform: scale(0.95);
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Add some space above the button */
+    width: 90%;
+    max-width: 400px;
+}
+
+.toggle-button {
+    background: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    color: var(--game-color);
+    padding: 12px 24px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    max-width: 300px;
+    border-radius: 4px;
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2);
+    font-family: 'Press Start 2P', sans-serif;
+    transition: all 0.3s ease;
+    line-height: 1.2;
+}
+
+.toggle-button:hover {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+}
+
+.toggle-button:active {
+    transform: scale(0.95);
 }
