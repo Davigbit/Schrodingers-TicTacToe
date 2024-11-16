@@ -56,10 +56,9 @@ export default function TicTacToe() {
         const randomEffect = () => {
             const index = Math.floor(Math.random() * grid.length);
             const change = getRandomChange();
-            console.log(index, change);
 
             function getRandomChange() {
-                if (grid.every(entry => entry !== 0)) return 1; // Force change if all entries are non-zero
+                if (grid.filter(entry => entry === 0).length <= 2) return 1; // Force change if all, but 2 entries are non-zero
 
                 const possibleChanges = [0, 1, 2];
                 const weights = [6, 3, 1]; // Chances!!!
