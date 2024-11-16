@@ -1,3 +1,3 @@
-# Schrodingers-TicTacToe
+# Schrödinger's Tic Tac Toe
  
-schrodingers-tic-tac-toe.vercel.app
+[Web Deployement of Schröndiger's Tic Tac Toe](https://schrodingers-tic-tac-toe.vercel.app/)
