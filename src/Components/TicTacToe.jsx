@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import './tictactoe.css';
-import Message from "./Message.jsx";
 import Quote from "./Quote.jsx";
 
 export default function TicTacToe({ isMachine }) {
@@ -176,7 +175,7 @@ export default function TicTacToe({ isMachine }) {
 
     return (
         <div>
-            <Quote winner={winner} />
+            {winner !== null && <Quote winner={winner} />}
             <div className="game-container">
                 {winner && <div className="winner-message">{`IT IS ${winner === 1 ? 'ALIVE' : 'DEAD'}!`}</div>}
                 {!winner && <div className="turn-message">
