@@ -109,7 +109,7 @@ export default function TicTacToe() {
                     newGrid[index] = 3; // Toggle between 0 and 4
                     return newGrid;
                 });
-        }
+            }
 
     }, [isXNext, winner]);
 
