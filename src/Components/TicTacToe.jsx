@@ -30,8 +30,14 @@ export default function TicTacToe() {
 
         for (let combination of winningCombinations) {
             const [a, b, c] = combination;
-            if (grid[a] !== 0 && grid[a] === grid[b] && grid[a] === grid[c]) {
-                return grid[a]; // Either 1 or 2
+            if (
+                (grid[a] !== 0 && grid[b] !== 0 && grid[c] !== 0) && (// None are zero
+                (grid[a] === grid[b] && grid[b] === grid[c]) || // All are equal
+                (grid[a] === grid[b] && grid[c] === 3) || // Two are equal and third is 3
+                (grid[a] === grid[c] && grid[b] === 3) || // Two are equal and third is 3
+                (grid[b] === grid[c] && grid[a] === 3)) // Two are equal and third is 3
+            ) {
+                return isXNext ? 2 : 1; // Either 1 or 2
             }
         }
         return null;
@@ -69,13 +75,14 @@ export default function TicTacToe() {
     );
 }
 
-function GridElement({element, onClick}) {
+function GridElement({ element, onClick }) {
     return (
         <div
-            className={`grid-element ${element === 1 ? 'circle' : element === 2 ? 'cross' : ''}`}
+            className={`grid-element ${element === 1 ? 'circle' : element === 2 ? 'cross' : 
+                        element === 3 ? 'superposition' : element === 4 ? 'blocked' : ''}`}
             onClick={onClick}
         >
-            {element === 1 ? 'O' : element === 2 ? 'X' : element === 3 ? 'S' : element === 4 ? 'B' : ''}
+            {element === 1 ? 'O' : element === 2 ? 'X' : element === 3 ? 'S' : ''}
         </div>
     );
 }
