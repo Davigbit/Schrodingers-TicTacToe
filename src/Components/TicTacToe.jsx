@@ -83,7 +83,7 @@ export default function TicTacToe({ isMachine }) {
                 if (grid.filter(entry => entry === 0).length <= 3) return 1; // Force change if all, but 3 entries are non-zero
 
                 const possibleChanges = [0, 1, 2];
-                const weights = [3, 4, 3]; // Chances!!!
+                const weights = [4, 4, 2]; // Chances!!!
                 const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
                 const random = Math.floor(Math.random() * totalWeight);
 
