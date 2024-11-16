@@ -1,0 +1,58 @@
+/* Modal container styles */
+.modal {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+/* Modal content styles */
+.modal-content {
+    line-height: 1.4;
+    background-color: #773ec6;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(56, 199, 247, 0.2);
+    max-width: 67vmin; /* Maximum width for large screens */
+    width: 90%; /* Responsive width */
+    max-height: 80vh; /* Limit height to 80% of the viewport height */
+    overflow-y: auto; /* Allow vertical scrolling if content overflows */
+    border: 3px solid white;
+}
+
+/* Button styles */
+.button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: white;
+    color: purple;
+    border: 3px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Press Start 2P', sans-serif;
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.button:hover {
+    background-color: #4ca1d2;
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 600px) {
+    .modal-content {
+        max-width: 90%; /* Ensure content fits well on smaller screens */
+        padding: 15px; /* Reduce padding on small screens */
+    }
+
+    .button {
+        padding: 8px 16px; /* Make button smaller for mobile */
+    }
+}

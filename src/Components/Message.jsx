@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import './messages&quotes.css'
 
 const messages = [
   "Welcome to Schrödinger's Tic Tac Toe!",
   "Every time a player plays, a random event may happen.",
-  "S means both X and O and the tile can be blocked, meaning that you cannot play in that tile."
+  "A boulder may block a tile, a symbol could disappear, or a superposition might help you get a win (or not)!"
 ];
 
 export default function Message() {
