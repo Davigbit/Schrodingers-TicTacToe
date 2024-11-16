@@ -1,6 +1,7 @@
 import TicTacToe from './Components/TicTacToe'
 import { useState } from "react";
 import './Components/tictactoe.css';
+import Message from "./Components/Message.jsx";
 
 function App() {
     const [isMachine, setIsMachine] = useState(false);
@@ -11,7 +12,8 @@ function App() {
 
     return (
         <div className="app-container">
-                <TicTacToe isMachine={isMachine} />
+            <Message />
+            <TicTacToe isMachine={isMachine} />
 
             {/* Button Container */}
             <div className="button-container">

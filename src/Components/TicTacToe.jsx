@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import './tictactoe.css';
+import Message from "./Message.jsx";
+import Quote from "./Quote.jsx";
 
 export default function TicTacToe({ isMachine }) {
     const [grid, setGrid] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -173,15 +175,18 @@ export default function TicTacToe({ isMachine }) {
     }, [isMachine]);
 
     return (
-        <div className="game-container">
-            {winner && <div className="winner-message">{`IT IS ${winner === 1 ? 'ALIVE' : 'DEAD'}!`}</div>}
-            {!winner && <div className="turn-message">
-                {`IS IT ${isXNext ? 'DEAD' : 'ALIVE'}?`}
-            </div>}
-            <div className="grid-container">
-                {gridElements}
+        <div>
+            <Quote winner={winner} />
+            <div className="game-container">
+                {winner && <div className="winner-message">{`IT IS ${winner === 1 ? 'ALIVE' : 'DEAD'}!`}</div>}
+                {!winner && <div className="turn-message">
+                    {`IS IT ${isXNext ? 'DEAD' : 'ALIVE'}?`}
+                </div>}
+                <div className="grid-container">
+                    {gridElements}
+                </div>
+                <button className="reset-button" onClick={resetGame}>Reset Game</button>
             </div>
-            <button className="reset-button" onClick={resetGame}>Reset Game</button>
         </div>
     );
 }
