@@ -94,7 +94,17 @@ body {
 }
 
 .superposition {
-    color: #ff9f1c;
+    position: relative;
+    background-image: url('../assets/S.png'); /* Replace with your image path */
+    background-repeat: no-repeat;
+    background-size: 40% auto; /* Make the image 33% of the width and scale height automatically */
+    background-position: center; /* Center the image in the div */
+    color: transparent; /* Hide text, if necessary */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensure content doesn't overflow */
 }
 
 .blocked {
@@ -125,6 +135,34 @@ body {
     background-color: var(--winning-ball-color);
     color: #ffffff;
     cursor: not-allowed;
+}
+
+.superposition.winBall {
+    position: relative;
+    background-image: url('../assets/whiteS.png'); /* Replace with your image path */
+    background-repeat: no-repeat;
+    background-size: 40% auto; /* Make the image 33% of the width and scale height automatically */
+    background-position: center; /* Center the image in the div */
+    color: transparent; /* Hide text, if necessary */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensure content doesn't overflow */
+}
+
+.superposition.winCross {
+    position: relative;
+    background-image: url('../assets/whiteS.png'); /* Replace with your image path */
+    background-repeat: no-repeat;
+    background-size: 40% auto; /* Make the image 33% of the width and scale height automatically */
+    background-position: center; /* Center the image in the div */
+    color: transparent; /* Hide text, if necessary */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensure content doesn't overflow */
 }
 
 .reset-button {

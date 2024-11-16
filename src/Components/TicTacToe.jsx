@@ -202,7 +202,7 @@ function GridElement({ element, onClick, isWinning, winner }) {
                         ${isWinning && (winner === 2) ? 'winCross' : ''}`}
             onClick={onClick}
         >
-            {element === 1 ? 'O' : element === 2 ? 'X' : element === 3 ? 'S' : ''}
+            {element === 1 ? 'O' : element === 2 ? 'X' : ''}
         </div>
     );
 }
