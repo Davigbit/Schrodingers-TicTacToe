@@ -103,6 +103,7 @@ export default function TicTacToe() {
                 };
 
                 toggleGridValue(index);
+
             } else if (newEffect === 2) {
                 setGrid(prevGrid => {
                     const newGrid = [...prevGrid];
@@ -157,8 +158,8 @@ function GridElement({ element, onClick, isWinning, winner }) {
     return (
         <div
             className={`grid-element ${elementClass} 
-                        ${isWinning && (element === 1 || element === 3) ? 'winBall' : ''} 
-                        ${isWinning && (element === 2 || element === 3) ? 'winCross' : ''}`}
+                        ${isWinning && (winner === 1) ? 'winBall' : ''} 
+                        ${isWinning && (winner === 2) ? 'winCross' : ''}`}
             onClick={onClick}
         >
             {element === 1 ? 'O' : element === 2 ? 'X' : element === 3 ? 'S' : ''}
