@@ -1,0 +1,46 @@
+/* Legends.jsx stylesheet */
+
+.l-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 20px;
+    border-radius: 8px;
+    width: 200px;
+    max-width: 100%;
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.7);
+    border: 3px solid white;
+    justify-content: flex-start;
+    margin-right: 100px;
+}
+
+.legend-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.legend-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+/* Superposition icon image styling */
+.superposition-img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}

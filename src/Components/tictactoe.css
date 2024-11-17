@@ -28,13 +28,31 @@ body {
     overflow: hidden;
 }
 
+.App {
+    display: flex; /* Arrange children side by side */
+    justify-content: space-between; /* Space them out evenly */
+    align-items: flex-start; /* Align items at the top */
+    height: 100vh; /* Make sure the container takes full height */
+    padding: 20px; /* Add some spacing inside the container */
+    gap: 20px; /* Add space between the two sections */
+    box-sizing: border-box; /* Include padding in the element's dimensions */
+}
+
 .app-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    min-height: 90vh;
+    max-width: 50%;
+}
+
+.legends-container {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .game-container {
@@ -48,12 +66,11 @@ body {
     border: 4px solid var(--primary-color);
     width: 90%;
     max-width: 600px;
-    box-shadow: 15px 15px 50px rgba(0, 255, 255, 0.5);
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.7);
 }
 
 .winner-message,
 .turn-message {
-    margin-bottom: 16px;
     font-size: 1.5rem;
     color: var(--font-color);
     transition: all 0.3s ease;
