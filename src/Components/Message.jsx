@@ -5,11 +5,11 @@ import './messages&quotes.css'
 
 const messages = [
     "Welcome to Schrödinger's Tic Tac Toe!",
-    "Each player either represents O or X, and respectively fight to define whether the cat is alive or dead.",
+    "Each player either represents O or X, and respectively fight to define whether the cat is dead or Alive.",
     "How is it quantum? Every time a player plays, a random event may happen.",
     "A boulder may block a tile, something may disappear, and many more.",
     "In case a superposition appears, do not be afraid as you were in your Quantum midterms." +
-    "They decay into whether X or O in no more than one round, so pay attention.",
+    "They decay into X or O in no more than one round, so pay attention.",
     "You are ready now. Good luck!"
 ];
 
