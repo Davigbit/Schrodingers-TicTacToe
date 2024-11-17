@@ -4,10 +4,13 @@ import './messages&quotes.css'
 /* This function generates a couple of "welcoming" sentences to new players. */
 
 const messages = [
-  "Welcome to Schrödinger's Tic Tac Toe!",
-  "Every time a player plays, a random event may happen.",
-  "A boulder may block a tile, a symbol could disappear, or a superposition might help you get a win, or not...",
-  "A superposition will decay one round after being observed by a player. Good luck!"
+    "Welcome to Schrödinger's Tic Tac Toe!",
+    "Each player either represents O or X, and respectively fight to define whether the cat is alive or dead.",
+    "How is it quantum? Every time a player plays, a random event may happen.",
+    "A boulder may block a tile, something may disappear, and many more.",
+    "In case a superposition appears, do not be afraid as you were in your Quantum midterms." +
+    "They decay into whether X or O in no more than one round, so pay attention.",
+    "You are ready now. Good luck!"
 ];
 
 export default function Message() {
