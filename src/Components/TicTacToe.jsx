@@ -56,15 +56,10 @@ export default function TicTacToe({ isMachine }) {
         for (let combination of winningCombinations) {
             const [a, b, c] = combination;
             if (
-                (grid[a] !== 0 && grid[b] !== 0 && grid[c] !== 0) && // None are zero
+                (grid[a] !== 0 && grid[b] !== 0 && grid[c] !== 0) && // None are 0
                 (grid[a] !== 4 && grid[b] !== 4 && grid[c] !== 4) && // None are 4
-                ((grid[a] === grid[b] && grid[b] === grid[c]) || // All are equal (1 or 2)
-                (grid[a] === grid[b] && grid[c] === 3) || // Two are equal and third is 3
-                (grid[a] === grid[c] && grid[b] === 3) || // Two are equal and third is 3
-                (grid[b] === grid[c] && grid[a] === 3) || // Two are equal, third is 3
-                (grid[a] === 3 && grid[b] === 3 && (grid[c] === 1 || grid[c] === 2)) || // Two are 3, third is 1 or 2
-                (grid[a] === 3 && grid[c] === 3 && (grid[b] === 1 || grid[b] === 2)) || // Two are 3, third is 1 or 2
-                (grid[b] === 3 && grid[c] === 3 && (grid[a] === 1 || grid[a] === 2))) // Two are 3, third is 1 or 2
+                (grid[a] !== 3 && grid[b] !== 3 && grid[c] !== 3) && // None are 3
+                (grid[a] === grid[b] && grid[a] === grid[c]) // All 3 are equal
             )
             {
                 if (grid[a] === 1 || grid[b] === 1 || grid[c] === 1) {
@@ -81,6 +76,12 @@ export default function TicTacToe({ isMachine }) {
 
     useEffect(() => {
         if (winner || grid.every(element => element === 0)) return; // Exit early if there's a winner or if it is starting
+
+        function observe() {
+            return Math.ceil(Math.random() * 2);
+        }
+        const newGrid = grid.map(element => element === 3 ? element - observe() : element);
+        if (newGrid !== grid) setGrid(newGrid);
 
         const randomEffect = () => {
             const index = Math.floor(Math.random() * grid.length);

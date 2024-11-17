@@ -4,7 +4,8 @@ import './messages&quotes.css'
 const messages = [
   "Welcome to Schrödinger's Tic Tac Toe!",
   "Every time a player plays, a random event may happen.",
-  "A boulder may block a tile, a symbol could disappear, or a superposition might help you get a win (or not)!"
+  "A boulder may block a tile, a symbol could disappear, or a superposition might help you get a win, or not...",
+  "A superposition will decay one round after being observed by a player. Good luck!"
 ];
 
 export default function Message() {
