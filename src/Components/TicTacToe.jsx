@@ -88,9 +88,7 @@ export default function TicTacToe({ isMachine, winner, setWinner }) {
         if (winner || grid.every(element => element === 0)) return; // Exit early if there's a winner or if it is starting
 
         /* If there is a superposition in the grid, make it decay to either O or X */
-        function observe() {
-            return Math.ceil(Math.random() * 2);
-        }
+        function observe() { return Math.ceil(Math.random() * 2); }
         const newGrid = grid.map(element => element === 3 ? element - observe() : element);
         if (newGrid !== grid) setGrid(newGrid);
 
@@ -205,7 +203,7 @@ export default function TicTacToe({ isMachine, winner, setWinner }) {
             {winner !== null && <Quote winner={winner} />}
             <div className="game-container">
                 {/* Displays winner's message */}
-                {winner && <div className="winner-message">{`IT IS ${winner === 1 ? 'ALIVE' : 'DEAD'}!`}</div>}
+                {winner && <div className="winner-message">{`THE CAT IS ${winner === 1 ? 'ALIVE' : 'DEAD'}!`}</div>}
                 {/* Displays turn's message */}
                 {!winner && <div className="turn-message">
                     {`IS IT ${isXNext ? 'DEAD' : 'ALIVE'}?`}
