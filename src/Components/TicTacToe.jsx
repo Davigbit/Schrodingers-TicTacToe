@@ -187,11 +187,16 @@ export default function TicTacToe({ isMachine }) {
                 {!winner && <div className="turn-message">
                     {`IS IT ${isXNext ? 'DEAD' : 'ALIVE'}?`}
                 </div>}
+
+                
+
                 <div className="grid-container">
                     {gridElements}
                 </div>
                 <button className="reset-button" onClick={resetGame}>Reset Game</button>
             </div>
+
+            
         </div>
     );
 }

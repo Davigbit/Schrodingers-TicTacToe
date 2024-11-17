@@ -126,6 +126,10 @@ body {
     position: absolute;
 }
 
+.b::before {
+    content: '🪨';
+}
+
 .winCross {
     background-color: var(--winning-cross-color);
     color: #ffffff;
