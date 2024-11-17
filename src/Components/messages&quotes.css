@@ -20,7 +20,7 @@
     padding: 20px;
     border-radius: 8px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(56, 199, 247, 0.2);
+    box-shadow: 2px 4px 8px rgba(132, 224, 255, 0.82);
     max-width: 67vmin; /* Maximum width for large screens */
     width: 90%; /* Responsive width */
     max-height: 80vh; /* Limit height to 80% of the viewport height */
@@ -33,7 +33,7 @@
     margin-top: 20px;
     padding: 10px 20px;
     background-color: white;
-    color: purple;
+    color: rgba(98, 0, 216, 0.89);
     border: 3px solid white;
     border-radius: 5px;
     cursor: pointer;
@@ -42,7 +42,7 @@
 }
 
 .button:hover {
-    background-color: #4ca1d2;
+    background-color: #6d85fb;
 }
 
 /* Responsive adjustments for small screens */

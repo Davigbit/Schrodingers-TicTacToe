@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import './tictactoe.css';
 import Quote from "./Quote.jsx";
+import sound0 from './f.mp3'
+import sound1 from './s.mp3'
+import sound2 from './x.mp3'
 
 export default function TicTacToe({ isMachine }) {
     const [grid, setGrid] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -9,6 +12,9 @@ export default function TicTacToe({ isMachine }) {
     const [winningIndices, setWinningIndices] = useState([]);
 
     const handleClick = (index) => {
+        const meows = [sound0, sound1, sound2];
+        const audio = new Audio(meows[Math.floor(Math.random() * meows.length)]);
+        audio.play()
 
         if (grid[index] !== 0 || winner || (isMachine && isXNext)) return;
 
