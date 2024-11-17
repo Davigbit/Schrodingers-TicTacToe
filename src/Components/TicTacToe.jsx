@@ -206,7 +206,7 @@ export default function TicTacToe({ isMachine, winner, setWinner }) {
                 {winner && <div className="winner-message">{`THE CAT IS ${winner === 1 ? 'ALIVE' : 'DEAD'}!`}</div>}
                 {/* Displays turn's message */}
                 {!winner && <div className="turn-message">
-                    {`IS IT ${isXNext ? 'DEAD' : 'ALIVE'}?`}
+                    {`IS IT ${isXNext ? 'DEAD? (X)' : 'ALIVE? (O)'}`}
                 </div>}
                 <div className="grid-container">
                     {gridElements}
