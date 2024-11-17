@@ -30,29 +30,39 @@ body {
 
 .App {
     display: flex; /* Arrange children side by side */
-    justify-content: space-between; /* Space them out evenly */
-    align-items: flex-start; /* Align items at the top */
-    height: 100vh; /* Make sure the container takes full height */
-    padding: 20px; /* Add some spacing inside the container */
-    gap: 20px; /* Add space between the two sections */
-    box-sizing: border-box; /* Include padding in the element's dimensions */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 40px; /* Add space between app-container and legends-container */
 }
 
-.app-container {
-    flex: 1;
+.app-container, .legends-container {
+    flex: 0 1 auto; /* Allow shrinking and prevent overflow */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 50%;
+    max-width: 45%; /* Adjust size for balance */
+    min-width: 300px; /* Prevent collapsing too much */
 }
 
-.legends-container {
-    flex: 1;
-    max-width: 50%;
+.legend {
     display: flex;
+    flex: 1;
+    max-height: 50%;
     justify-content: center;
     align-items: center;
+}
+
+.image {
+    display: flex;
+    flex: 1;
+    max-height: 50%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .game-container {

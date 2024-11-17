@@ -3,6 +3,9 @@ import { useState } from "react";
 import './Components/tictactoe.css';
 import Message from "./Components/Message.jsx";
 import Legends from "./Components/Legends.jsx";
+import catImage from "./assets/cat.gif"
+import ghostImage from "./assets/ghost.gif"
+import graveImage from "./assets/grave.gif"
 
 function App() {
 
@@ -18,11 +21,6 @@ function App() {
     /* Builds these React components to the DOM as if it were a HTML file */
     return (
         <div className="App">
-            {/* Legends component */}
-            <div className="legends-container">
-                <Legends />
-            </div>
-
             {/* App-container with TicTacToe and Message */}
             <div className="app-container">
                 {/* Initial messages */}
@@ -37,6 +35,16 @@ function App() {
                         {isMachine ? "Switch to PVP Mode" : "Switch to PVC Mode"}
                     </button>
                 </div>
+            </div>
+
+            {/* Legends component */}
+            <div className="legends-container">
+                <div className="legend">
+                    <Legends />
+                </div>
+
+                <img className="image" alt="Cat" src={ghostImage} />
+
             </div>
         </div>
     );
