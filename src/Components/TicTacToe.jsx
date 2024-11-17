@@ -5,7 +5,7 @@ import sound0 from '../assets/f.mp3'
 import sound1 from '../assets/s.mp3'
 import sound2 from '../assets/x.mp3'
 
-export default function TicTacToe({ isMachine }) {
+export default function TicTacToe({ isMachine, winner, setWinner }) {
 
     /* Tic Tac Toe grid with its values following the following:
     0: Empty; 1: O; 2: X; 3: Superposition; 4: Block */
@@ -13,9 +13,6 @@ export default function TicTacToe({ isMachine }) {
 
     /* isXNext is a boolean representing if the game is waiting for X to play or not */
     const [isXNext, setIsXNext] = useState(false);
-
-    /* winner is null if there is no winner, 1 if O won, and 2 if X won */
-    const [winner, setWinner] = useState(null);
 
     /* winningIndices is an array that stores the 3 indexes that are responsible
     * for the winning position */

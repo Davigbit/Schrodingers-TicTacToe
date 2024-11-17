@@ -22,8 +22,8 @@
     border-radius: 8px;
     text-align: center;
     box-shadow: 2px 4px 8px rgba(132, 224, 255, 0.82);
-    max-width: 67vmin; /* Maximum width for large screens */
-    width: 90%; /* Responsive width */
+    max-width: 60vmin; /* Maximum width for large screens */
+    width: 95%; /* Responsive width */
     max-height: 80vh; /* Limit height to 80% of the viewport height */
     overflow-y: auto; /* Allow vertical scrolling if content overflows */
     border: 3px solid white;

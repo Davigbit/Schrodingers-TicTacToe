@@ -9,7 +9,7 @@ const messages = [
     "How is it quantum? Every time a player plays, a random event may happen.",
     "A boulder may block a tile, something may disappear, and more.",
     "In case a superposition appears, do not be afraid as you were in your physics midterms." +
-    "They decay into X or O in no more than one round, so pay attention.",
+    "They decay into X or O in no more than one round, so pay attention to it.",
     "You are ready now. Good luck!"
 ];
 
@@ -29,13 +29,16 @@ export default function Message() {
     });
   };
 
+  const isLastMessage = currentMessageIndex === messages.length - 1;
+
   return (
     <div>
       {isVisible && (
         <div className="modal">
           <div className="modal-content">
             <p id="modal-text">{messages[currentMessageIndex]}</p>
-            <button className="button" onClick={nextMessage}>Next</button>
+              {/* If last, change button's text */}
+              <button className="button" onClick={nextMessage}>{isLastMessage ? "Exit" : "Next"}</button>
           </div>
         </div>
       )}

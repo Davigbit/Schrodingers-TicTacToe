@@ -30,12 +30,11 @@ body {
 
 .App {
     display: flex; /* Arrange children side by side */
-    justify-content: center; /* Center content horizontally */
+    justify-content: flex-end; /* Center content horizontally */
     align-items: center; /* Center content vertically */
     height: 100vh;
     padding: 20px;
     box-sizing: border-box;
-    gap: 40px; /* Add space between app-container and legends-container */
 }
 
 .app-container, .legends-container {
@@ -63,6 +62,7 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    margin-left: 80px;
 }
 
 .game-container {
