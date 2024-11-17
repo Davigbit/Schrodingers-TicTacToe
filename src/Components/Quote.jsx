@@ -1,6 +1,8 @@
 import React, {useEffect} from "react";
 import './messages&quotes.css'
 
+/* This function generates a random "congratulation" sentence to the winner player with some trivia. */
+
 const quotes = [
     "Don't disregard moves that don't lead to direct wins, they might lead to opportunity when the grid changes!",
     "We do not condone experiments on cats!",
@@ -16,6 +18,7 @@ export default function Quote({ winner }) {
 
     const randomQuote = Math.floor(Math.random() * quotes.length);
 
+    /* This useEffect runs what its content every time the variable "winner" changes. */
     useEffect(() => {
         setIsVisible(true);
     }, [winner]);
@@ -27,6 +30,8 @@ export default function Quote({ winner }) {
                     <div className="modal-content">
                         <h3>{`IT ${winner === 1 ? "LIVES" : "DIED"}!`}</h3>
                         <p id="modal-text">{quotes[randomQuote]}</p>
+
+                        {/* When pressed, the button will close the window */}
                         <button className="button" onClick={() => {
                             setIsVisible(false);
                         }}>Exit

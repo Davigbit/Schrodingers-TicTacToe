@@ -1,4 +1,5 @@
-/* Modal container styles */
+/* Styling of the Message.jsx and Quote.jsx file */
+
 .modal {
     display: flex; /* Use flexbox for centering */
     justify-content: center; /* Center horizontally */

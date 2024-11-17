@@ -1,16 +1,27 @@
 import { useState, useEffect } from 'react';
 import './tictactoe.css';
 import Quote from "./Quote.jsx";
-import sound0 from './f.mp3'
-import sound1 from './s.mp3'
-import sound2 from './x.mp3'
+import sound0 from '../assets/f.mp3'
+import sound1 from '../assets/s.mp3'
+import sound2 from '../assets/x.mp3'
 
 export default function TicTacToe({ isMachine }) {
+
+    /* Tic Tac Toe grid with its values following the following:
+    0: Empty; 1: O; 2: X; 3: Superposition; 4: Block */
     const [grid, setGrid] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+
+    /* isXNext is a boolean representing if the game is waiting for X to play or not */
     const [isXNext, setIsXNext] = useState(false);
+
+    /* winner is null if there is no winner, 1 if O won, and 2 if X won */
     const [winner, setWinner] = useState(null);
+
+    /* winningIndices is an array that stores the 3 indexes that are responsible
+    * for the winning position */
     const [winningIndices, setWinningIndices] = useState([]);
 
+    /* Puts player's piece on square and check for winner*/
     const handleClick = (index) => {
         const meows = [sound0, sound1, sound2];
         const audio = new Audio(meows[Math.floor(Math.random() * meows.length)]);
@@ -30,6 +41,7 @@ export default function TicTacToe({ isMachine }) {
         }
     };
 
+    /* Puts computer's piece on square and check for winner*/
     const handleComputer = (index) => {
 
         if (grid[index] !== 0 || winner || (!isMachine && !isXNext)) return;
@@ -74,27 +86,32 @@ export default function TicTacToe({ isMachine }) {
         return null;
     };
 
+    /* Does a random effect on a random square */
     useEffect(() => {
         if (winner || grid.every(element => element === 0)) return; // Exit early if there's a winner or if it is starting
 
+        /* If there is a superposition in the grid, make it decay to either O or X */
         function observe() {
             return Math.ceil(Math.random() * 2);
         }
         const newGrid = grid.map(element => element === 3 ? element - observe() : element);
         if (newGrid !== grid) setGrid(newGrid);
 
+        /* Selects a random change to the grid and the index the change is happening */
         const randomEffect = () => {
             const index = Math.floor(Math.random() * grid.length);
             const change = getRandomChange();
 
             function getRandomChange() {
-                if (grid.filter(entry => entry === 0).length <= 3) return 1; // Force change if all, but 3 entries are non-zero
+                if (grid.filter(entry => entry === 0).length <= 3) return 1;
+                // Force change "1" if all, but 3 entries are non-zero (So no draw happens)
 
-                const possibleChanges = [0, 1, 2];
-                const weights = [3, 4, 3]; // Chances!!!
+                const possibleChanges = [0, 1, 2]; // 0: Nothing; 1: Either erase or make a block; 2: Add superposition
+                const weights = [3, 4, 3]; // Chances
                 const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
                 const random = Math.floor(Math.random() * totalWeight);
 
+                // Calculates which state it will choose
                 let cumulativeWeight = 0;
                 for (let i = 0; i < possibleChanges.length; i++) {
                     cumulativeWeight += weights[i];
@@ -113,13 +130,14 @@ export default function TicTacToe({ isMachine }) {
                 const toggleGridValue = (index) => {
                     setGrid(prevGrid => {
                         const newGrid = [...prevGrid];
+                        // If the index is empty, add a block. If it has something, make it empty
                         newGrid[index] = prevGrid[index] === 0 ? 4 : 0;
 
                         // Check if the grid is full and no winner exists
                         const isGridFull = newGrid.every(element => element !== 0);
                         if (winner === null && isGridFull) {
                             // Re-run the logic on the same index to avoid draws
-                            newGrid[index] = newGrid[index] === 0 ? 4 : 0; // Toggle again
+                            newGrid[index] = newGrid[index] === 0 ? 4 : 0;
                         }
 
                         return newGrid;
@@ -131,13 +149,14 @@ export default function TicTacToe({ isMachine }) {
             } else if (newEffect === 2) {
                 setGrid(prevGrid => {
                     const newGrid = [...prevGrid];
-                    newGrid[index] = 3; // Toggle between 0 and 4
+                    newGrid[index] = 3; // Add a superposition at the selected index
                     return newGrid;
                 });
             }
 
     }, [isXNext, winner]);
 
+    // Transforms the grid array into an array of React components.
     const gridElements = grid.map((element, index) => (
         <GridElement
             key={index}
@@ -149,6 +168,7 @@ export default function TicTacToe({ isMachine }) {
         />
     ));
 
+    // Reset all React states (it is called by the reset button)
     const resetGame = () => {
         setGrid([0, 0, 0, 0, 0, 0, 0, 0, 0]);
         setWinner(null);
@@ -156,6 +176,7 @@ export default function TicTacToe({ isMachine }) {
         setWinningIndices([]);
     };
 
+    // If playing with a machine, waits one second and decide upon the machine's movement
     useEffect(() => {
         // If it's the computer's turn and the game is not over
         if (isXNext && isMachine && !winner) {
@@ -176,15 +197,19 @@ export default function TicTacToe({ isMachine }) {
         }
     }, [isXNext, isMachine, winner, grid]);
 
+    // If the player's adversary changes, reset game
     useEffect(() => {
         resetGame();
     }, [isMachine]);
 
     return (
         <div>
+            {/* If there is a winner, display a Quote component */}
             {winner !== null && <Quote winner={winner} />}
             <div className="game-container">
+                {/* Displays winner's message */}
                 {winner && <div className="winner-message">{`IT IS ${winner === 1 ? 'ALIVE' : 'DEAD'}!`}</div>}
+                {/* Displays turn's message */}
                 {!winner && <div className="turn-message">
                     {`IS IT ${isXNext ? 'DEAD' : 'ALIVE'}?`}
                 </div>}
@@ -197,6 +222,7 @@ export default function TicTacToe({ isMachine }) {
     );
 }
 
+// Helper React component that aids with styling in "tictactoe.css"
 function GridElement({ element, onClick, isWinning, winner }) {
     let elementClass = '';
 
