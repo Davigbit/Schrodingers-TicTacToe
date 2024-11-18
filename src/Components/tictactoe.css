@@ -125,7 +125,7 @@ body {
 
 .superposition {
     position: relative;
-    background-image: url('../assets/S.png'); /* Replace with your image path */
+    background-image: url('../assets/S.png');
     background-repeat: no-repeat;
     background-size: 40% auto; /* Make the image 33% of the width and scale height automatically */
     background-position: center; /* Center the image in the div */
@@ -138,24 +138,17 @@ body {
 }
 
 .blocked {
-    position: relative;
+    background-image: url('../assets/pixelated_rock.png');
+    background-repeat: no-repeat;
+    background-size: 40% auto; /* Make the image 33% of the width and scale height automatically */
+    background-position: center; /* Center the image in the div */
+    color: transparent; /* Hide text, if necessary */
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #ff0000;
+    overflow: hidden; /* Ensure content doesn't overflow */
     cursor: not-allowed;
-}
-
-.blocked::before {
-    content: url('../assets/pixelated_rock.png');
-    display: inline-block; /* Ensure the image behaves like a resizable block */
-    width: calc(var(--grid-size) * 0.6); /* Adjust size */
-    height: calc(var(--grid-size) * 0.66);
-    transform: scale(2.5); /* Scale the image to increase size */
-    position: absolute; /* Keep it positioned within the parent */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(2.5);
 }
 
 .winCross {
@@ -199,7 +192,7 @@ body {
 .button-container {
     display: flex;
     justify-content: center;
-    margin-top: 20px; /* Add some space above the button */
+    margin-top: 20px;
     width: 90%;
     max-width: 400px;
 }
