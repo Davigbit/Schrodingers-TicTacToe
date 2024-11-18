@@ -16,7 +16,9 @@ export default function Legends() {
                     <span>Dead</span>
                 </div>
                 <div className="legend-item">
-                    <div className="legend-icon b">🪨</div>
+                    <div className="legend-icon b">
+                        <img src="src/assets/pixelated_rock.png" width={16} height={16}/>
+                    </div>
                     <span>Block</span>
                 </div>
                 <div className="legend-item">
