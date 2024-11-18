@@ -1,14 +1,31 @@
-# Schrödinger's Tic Tac Toe
+# Schrödinger's Tic Tac Toe 
 
-Schrödinger's Tic Tac Toe is a game we made for the McGill Physics Hackathon (2024). We used Javascript, CSS and HTML to make it. We decided to make concepts in quantum mechanics like superposition, quantum fluctuations and short-lived virtual particles accessible for non-physicists. We chose to go with a Schrödinger theme since his famous thought experiment contains a cute cat (included in the game)! The game is Tic Tac Toe but with 3 new mechanics inspired by quantum mechanics (pun intended). Every turn, one of the following things happens to the grid: 
+<img align="right" height="400px" width="auto" src="https://github.com/Davigbit/Schrodingers-TicTacToe/blob/main/src/assets/cat.gif">
 
-1. A particle in superposition appears.
-2. Quantum fluctuations cause a rock to appear and block your square.
-3. One of the Xs or Os disapear, just like a virtual particle.
-4. Nothing happens.
+### McGill Physics Hackathon 2024
+- 🥇 1st Place Winner ($1500)
+- 🏅 People's Choice Winner ($400)
 
-These new mechanics make the classic, and fairly boring, game of tic tac toe much more interesting (and not always a draw). Despite there being some chance, there is a lot of strategy in the game. There are some fun puzzles and positions to analyze!
+Submition: [DoraHacks](https://dorahacks.io/buidl/19911)
 
- # Usage
- Go to this website:
-[Web Deployement of Schröndiger's Tic Tac Toe](https://schrodingers-tic-tac-toe.vercel.app/)
+### Team
+- Aziz Kitana: [LinkedIn](https://www.linkedin.com/in/aziz-kitana-6082a527a/), [GitHub](https://github.com/Dvader30)
+- Davi Gava Bittencourt: [LinkedIn](https://www.linkedin.com/in/davigbit/), [Github](https://github.com/Davigbit)
+- Ezzaddin Al-Ajrawi: [LinkedIn](https://www.linkedin.com/in/ezzaddin-al-ajrawi-129274235/)
+- Lina Guezi: [LinkedIn](https://www.linkedin.com/in/lina-guezi/), [Github](https://github.com/Lina674)
+- Nerina An: [LinkedIn](https://www.linkedin.com/in/nerina-an-a848ab248/)
+
+### Deployment
+Website: [Schröndiger's Tic Tac Toe](https://schrodingers-tic-tac-toe.vercel.app/)
+
+### Project Overview
+Schrödinger's Tic-Tac-Toe redefines the classic game by integrating fundamental quantum mechanics principles like superposition and decay. It’s designed to help players grasp these complex concepts intuitively while enjoying a strategic and engaging gameplay experience. The project offers a unique fusion of education and entertainment, bridging the gap between abstract physics and everyday understanding.
+
+The game is powered by React.js, ensuring a dynamic and responsive user experience. Custom CSS styling brings the quantum theme to life with vibrant colors, pixel-art-inspired fonts, and smooth animations. The game logic, built in JavaScript, handles quantum states and superpositions, ensuring gameplay remains true to quantum mechanics principles.
+
+Adding a whimsical touch, playful Schrödinger's cat gifs appear when either player wins, humorously representing the "alive and dead" paradox. These fun visuals lighten the mood and make the quantum concepts more engaging and memorable for players.
+
+Schrödinger's Tic-Tac-Toe combines science, strategy, and humor to deliver an immersive, thought-provoking, entertaining experience. It’s a gateway for players to explore quantum mechanics in an approachable, hands-on way.
+
+### License
+[MIT License](https://github.com/Davigbit/Schrodingers-TicTacToe/blob/main/LICENSE)
