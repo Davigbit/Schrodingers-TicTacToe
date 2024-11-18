@@ -1,6 +1,6 @@
 # Schrödinger's Tic Tac Toe 
 
-<img align="right" height="400px" width="auto" src="https://github.com/Davigbit/Schrodingers-TicTacToe/blob/main/src/assets/cat.gif">
+<img align="right" height="200px" width="auto" src="https://github.com/Davigbit/Schrodingers-TicTacToe/blob/main/src/assets/cat.gif">
 
 ### McGill Physics Hackathon 2024
 - 🥇 1st Place Winner ($1500)
