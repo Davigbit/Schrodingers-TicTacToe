@@ -2,6 +2,7 @@
 
 import './legends.css'
 import superImage from '../assets/S.png'
+import rockImage from '../assets/rock.png'
 
 export default function Legends() {
     return (
@@ -17,7 +18,7 @@ export default function Legends() {
                 </div>
                 <div className="legend-item">
                     <div className="legend-icon">
-                        <img src="src/assets/pixelated_rock.png" alt="rock" width={16} height={16}/>
+                        <img src={rockImage} alt="rock" width={16} height={16}/>
                     </div>
                     <span>Block</span>
                 </div>

@@ -138,7 +138,7 @@ body {
 }
 
 .blocked {
-    background-image: url('../assets/pixelated_rock.png');
+    background-image: url('../assets/rock.png');
     background-repeat: no-repeat;
     background-size: 40% auto; /* Make the image 33% of the width and scale height automatically */
     background-position: center; /* Center the image in the div */
