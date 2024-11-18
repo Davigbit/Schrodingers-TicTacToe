@@ -6,7 +6,7 @@
 
 Submition: [DoraHacks](https://dorahacks.io/buidl/19911)
 
-<img align="right" height="200px" width="auto" src="https://github.com/Davigbit/Schrodingers-TicTacToe/blob/main/src/assets/cat.gif">
+<img align="right" height="250px" width="auto" src="https://github.com/Davigbit/Schrodingers-TicTacToe/blob/main/src/assets/cat.gif">
 
 ### Team
 - Aziz Kitana: [LinkedIn](https://www.linkedin.com/in/aziz-kitana-6082a527a/), [GitHub](https://github.com/Dvader30)
