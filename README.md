@@ -4,7 +4,7 @@
 - 🥇 1st Place Winner ($1500)
 - 🏅 People's Choice Winner ($400)
 
-Submition: [DoraHacks](https://dorahacks.io/buidl/19911)
+Submission: [DoraHacks](https://dorahacks.io/buidl/19911)
 
 <img align="right" height="250px" width="auto" src="https://github.com/Davigbit/Schrodingers-TicTacToe/blob/main/src/assets/cat.gif">
 
