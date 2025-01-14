@@ -5,7 +5,7 @@ import sound0 from '../assets/f.mp3'
 import sound1 from '../assets/s.mp3'
 import sound2 from '../assets/x.mp3'
 
-export default function TicTacToe({ isMachine, winner, setWinner }) {
+export default function TicTacToe({ mode, winner, setWinner }) {
 
     /* Tic Tac Toe grid with its values following the following:
     0: Empty; 1: O; 2: X; 3: Superposition; 4: Block */
@@ -24,7 +24,8 @@ export default function TicTacToe({ isMachine, winner, setWinner }) {
         const audio = new Audio(meows[Math.floor(Math.random() * meows.length)]);
         audio.play()
 
-        if (grid[index] !== 0 || winner || (isMachine && isXNext)) return;
+        // Do not be STUPID AGAIN!!!
+        if (grid[index] !== 0 || winner || ((mode === 1) && isXNext)) return;
 
         const newGrid = [...grid];
         newGrid[index] = isXNext ? 2 : 1;
@@ -41,7 +42,7 @@ export default function TicTacToe({ isMachine, winner, setWinner }) {
     /* Puts computer's piece on square and check for winner*/
     const handleComputer = (index) => {
 
-        if (grid[index] !== 0 || winner || (!isMachine && !isXNext)) return;
+        if (grid[index] !== 0 || winner || (!(mode === 1) && !isXNext)) return;
 
             const newGrid = [...grid];
             newGrid[index] = isXNext ? 2 : 1;
@@ -174,7 +175,7 @@ export default function TicTacToe({ isMachine, winner, setWinner }) {
     // If playing with a machine, waits one second and decide upon the machine's movement
     useEffect(() => {
         // If it's the computer's turn and the game is not over
-        if (isXNext && isMachine && !winner) {
+        if (isXNext && (mode === 1) && !winner) {
             const timeoutId = setTimeout(() => {
                 // Find an empty cell for the computer to play
                 const emptyCells = grid
@@ -190,12 +191,12 @@ export default function TicTacToe({ isMachine, winner, setWinner }) {
 
             return () => clearTimeout(timeoutId);
         }
-    }, [isXNext, isMachine, winner, grid]);
+    }, [isXNext, mode, winner, grid]);
 
     // If the player's adversary changes, reset game
     useEffect(() => {
         resetGame();
-    }, [isMachine]);
+    }, [mode]);
 
     return (
         <div>
