@@ -14,8 +14,8 @@ export default function TicTacToe({ mode, winner, setWinner, peer, conn }) {
     0: Empty; 1: O; 2: X; 3: Superposition; 4: Block */
     const [grid, setGrid] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
-    /* isXNext is a boolean representing if the game is waiting for X to play or not */
-    const [isXNext, setIsXNext] = useState(false);
+    /*determines whether or not it is the player's turn and therefore if they are allowed to click*/
+    const [isTurn, setIsTurn] = useState(false);
 
     /* winningIndices is an array that stores the 3 indexes that are responsible
     * for the winning position */
@@ -32,7 +32,7 @@ export default function TicTacToe({ mode, winner, setWinner, peer, conn }) {
         // Do not be STUPID AGAIN!!!
         if (grid[index] !== 0 || winner || ((mode === 1) && isXNext)) return;
 
-        
+
 
         const newGrid = [...grid];
         newGrid[index] = isXNext ? 2 : 1;
