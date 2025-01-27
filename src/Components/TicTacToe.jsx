@@ -14,8 +14,8 @@ export default function TicTacToe({ mode, winner, setWinner, peer, conn }) {
     0: Empty; 1: O; 2: X; 3: Superposition; 4: Block */
     const [grid, setGrid] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
-    /*determines whether or not it is the player's turn and therefore if they are allowed to click*/
-    const [isTurn, setIsTurn] = useState(false);
+    /* A boolean that determines whether or not its the players turn */ 
+    const [isTurn, setIsTurn] = useState(true);
 
     /* winningIndices is an array that stores the 3 indexes that are responsible
     * for the winning position */
@@ -25,19 +25,22 @@ export default function TicTacToe({ mode, winner, setWinner, peer, conn }) {
 
     /* Puts player's piece on square and check for winner*/
     const handleClick = (index) => {
+
+        if (grid[index] !== 0 || winner || ((mode === 1 || mode === sound2) && !isTurn)) return;
+
         const meows = [sound0, sound1, sound2];
         const audio = new Audio(meows[Math.floor(Math.random() * meows.length)]);
         audio.play()
 
         // Do not be STUPID AGAIN!!!
-        if (grid[index] !== 0 || winner || ((mode === 1) && isXNext)) return;
+        
 
 
 
         const newGrid = [...grid];
-        newGrid[index] = isXNext ? 2 : 1;
+        newGrid[index] = !isTurn ? 2 : 1;
         setGrid(newGrid);
-        setIsXNext(isXNext => !isXNext);
+        setIsTurn(isTurn => !isTurn);
 
         const result = checkWinner(newGrid);
         if (result) {
@@ -49,12 +52,12 @@ export default function TicTacToe({ mode, winner, setWinner, peer, conn }) {
     /* Puts computer's piece on square and check for winner*/
     const handleComputer = (index) => {
 
-        if (grid[index] !== 0 || winner || (!(mode === 1) && !isXNext)) return;
+        if (grid[index] !== 0 || winner || (!(mode === 1) && isTurn)) return;
 
             const newGrid = [...grid];
-            newGrid[index] = isXNext ? 2 : 1;
+            newGrid[index] = !isTurn ? 2 : 1;
             setGrid(newGrid);
-            setIsXNext(isXNext => !isXNext);
+            setIsTurn(isTurn => !isTurn);
 
             const result = checkWinner(newGrid);
             if (result) {
@@ -157,7 +160,7 @@ export default function TicTacToe({ mode, winner, setWinner, peer, conn }) {
                 });
             }
 
-    }, [isXNext, winner]);
+    }, [isTurn, winner]);
 
     // Transforms the grid array into an array of React components.
     const gridElements = grid.map((element, index) => (
@@ -175,14 +178,14 @@ export default function TicTacToe({ mode, winner, setWinner, peer, conn }) {
     const resetGame = () => {
         setGrid([0, 0, 0, 0, 0, 0, 0, 0, 0]);
         setWinner(null);
-        setIsXNext(false); // Start with Player X
+        setIsTurn(true); // Start with Player X
         setWinningIndices([]);
     };
 
     // If playing with a machine, waits one second and decide upon the machine's movement
     useEffect(() => {
         // If it's the computer's turn and the game is not over
-        if (isXNext && (mode === 1) && !winner) {
+        if (!isTurn && (mode === 1) && !winner) {
             const timeoutId = setTimeout(() => {
                 // Find an empty cell for the computer to play
                 const emptyCells = grid
@@ -198,7 +201,7 @@ export default function TicTacToe({ mode, winner, setWinner, peer, conn }) {
 
             return () => clearTimeout(timeoutId);
         }
-    }, [isXNext, mode, winner, grid]);
+    }, [isTurn, mode, winner, grid]);
 
     // If the player's adversary changes, reset game
     useEffect(() => {
@@ -214,7 +217,7 @@ export default function TicTacToe({ mode, winner, setWinner, peer, conn }) {
                 {winner && <div className="winner-message">{`THE CAT IS ${winner === 1 ? 'ALIVE' : 'DEAD'}!`}</div>}
                 {/* Displays turn's message */}
                 {!winner && <div className="turn-message">
-                    {`IS IT ${isXNext ? 'DEAD? (X)' : 'ALIVE? (O)'}`}
+                    {`IS IT ${!isTurn ? 'DEAD? (X)' : 'ALIVE? (O)'}`}
                 </div>}
                 <div className="grid-container">
                     {gridElements}
