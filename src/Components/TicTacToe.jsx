@@ -5,7 +5,10 @@ import sound0 from '../assets/f.mp3'
 import sound1 from '../assets/s.mp3'
 import sound2 from '../assets/x.mp3'
 
-export default function TicTacToe({ mode, winner, setWinner }) {
+
+
+
+export default function TicTacToe({ mode, winner, setWinner, peer, conn }) {
 
     /* Tic Tac Toe grid with its values following the following:
     0: Empty; 1: O; 2: X; 3: Superposition; 4: Block */
@@ -18,6 +21,8 @@ export default function TicTacToe({ mode, winner, setWinner }) {
     * for the winning position */
     const [winningIndices, setWinningIndices] = useState([]);
 
+ 
+
     /* Puts player's piece on square and check for winner*/
     const handleClick = (index) => {
         const meows = [sound0, sound1, sound2];
@@ -26,6 +31,8 @@ export default function TicTacToe({ mode, winner, setWinner }) {
 
         // Do not be STUPID AGAIN!!!
         if (grid[index] !== 0 || winner || ((mode === 1) && isXNext)) return;
+
+        
 
         const newGrid = [...grid];
         newGrid[index] = isXNext ? 2 : 1;
