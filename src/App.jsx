@@ -25,9 +25,13 @@ function App() {
 
     const [conn, setConn] = useState(null);
 
+    const [isDisconnecting, setisDisconnecting] = useState(false);
+
+
+
     peer = initializePeer(peer);
     
-
+    Recieve(peer, conn, setConn);
     
 
     /* Function that changes modes */
@@ -57,7 +61,7 @@ function App() {
                 } }>
                     Connect
                 </button>
-                <button onClick={() => mo}>
+                <button onClick={() => Disconnect(conn)}>
                     Disconnect
                 </button>
             </div>}

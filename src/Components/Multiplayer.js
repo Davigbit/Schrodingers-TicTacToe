@@ -39,11 +39,12 @@ export function Recieve(peer, conn, setConn, setGrid) {
 
 		conn.on('close', function() {
 			console.log('connection terminated');
+			setConn(null);
 		})
 	}	
 }
 
-export function Disconnect(conn) {
+export function Disconnect(conn, setisDisconnecting) {
 	if (conn) {
 		conn.close();
 	} else {
