@@ -26,12 +26,27 @@ export function initiateConnection(conId, conn, peer) {
 }
 
 
-export function Recieve(peer, conn,setConn) {
+export function Recieve(peer, conn, setConn, setGrid) {
 	if (!conn) {
 		peer.on('connection', function(c) {
 			setConn(c);
 			console.log('connected to ' + c.peer);
 		});
+	} else {
+		conn.on('data', function(data) {
+			setGrid(data);
+		});
+
+		conn.on('close', function() {
+			console.log('connection terminated');
+		})
+	}	
+}
+
+export function Disconnect(conn) {
+	if (conn) {
+		conn.close();
+	} else {
+		console.log("You're not connected to anything, dummy!");
 	}
-	return conn;	
 }
