@@ -8,7 +8,8 @@ import sound2 from '../assets/x.mp3'
 
 
 
-export default function TicTacToe({ mode, winner, setWinner, peer, conn }) {
+export default function TicTacToe({ mode, winner, setWinner, peer, 
+    conn, isInitiator, setisInitiator, OtherGrid}) {
 
     /* Tic Tac Toe grid with its values following the following:
     0: Empty; 1: O; 2: X; 3: Superposition; 4: Block */
@@ -20,25 +21,39 @@ export default function TicTacToe({ mode, winner, setWinner, peer, conn }) {
     /* winningIndices is an array that stores the 3 indexes that are responsible
     * for the winning position */
     const [winningIndices, setWinningIndices] = useState([]);
-
+   
+    const[oldGrid, setOldGrid] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
  
+    const [isMultiplayerBeginning, setisMultiplayerBeginning] = useState([true])
+    
+    if (isInitiator && isMultiplayerBeginning)  {
+        console.log('lol');
+        setisMultiplayerBeginning(false);
+    } else if ((isInitiator === false) && isMultiplayerBeginning) {
+        console.log('lmao');
+        isInitiator= null;
+        setIsTurn(false);
+        setisMultiplayerBeginning(false);
+    }
+
+    if (conn) {
+        conn.on('data', function(data) {
+            console.log('recieved data');
+            setGrid(data);
+            setIsTurn(!isTurn);
+        });
+
+    }
 
     /* Puts player's piece on square and check for winner*/
     const handleClick = (index) => {
 
-        if (grid[index] !== 0 || winner || ((mode === 1 || mode === sound2) && !isTurn)) return;
-
+        if (grid[index] !== 0 || winner || ((mode === 1 || mode === 2) && !isTurn)) return;
         const meows = [sound0, sound1, sound2];
         const audio = new Audio(meows[Math.floor(Math.random() * meows.length)]);
         audio.play()
-
-        // Do not be STUPID AGAIN!!!
-        
-
-
-
         const newGrid = [...grid];
-        newGrid[index] = !isTurn ? 2 : 1;
+        newGrid[index] = (isTurn && isInitiator)  ? 1 : 2;
         setGrid(newGrid);
         setIsTurn(isTurn => !isTurn);
 
@@ -96,7 +111,10 @@ export default function TicTacToe({ mode, winner, setWinner, peer, conn }) {
 
     /* Does a random effect on a random square */
     useEffect(() => {
-        if (winner || grid.every(element => element === 0)) return; // Exit early if there's a winner or if it is starting
+        console.log('randomizing!');
+        if ((winner || grid.every(element => element === 0)) || (isTurn && mode === 2)) return; 
+                                                                    // Exit early if there's a winner or if it is 
+                                                                    // or if it is the player's turn
 
         /* If there is a superposition in the grid, make it decay to either O or X */
         function observe() { return Math.ceil(Math.random() * 2); }
@@ -159,6 +177,10 @@ export default function TicTacToe({ mode, winner, setWinner, peer, conn }) {
                     return newGrid;
                 });
             }
+        if ((JSON.stringify(oldGrid) !== JSON.stringify(grid)) && mode === 2 && conn) {
+            setOldGrid(grid);
+            conn.send(grid);
+        }
 
     }, [isTurn, winner]);
 
@@ -201,12 +223,16 @@ export default function TicTacToe({ mode, winner, setWinner, peer, conn }) {
 
             return () => clearTimeout(timeoutId);
         }
+
+        
     }, [isTurn, mode, winner, grid]);
 
     // If the player's adversary changes, reset game
     useEffect(() => {
         resetGame();
     }, [mode]);
+
+    
 
     return (
         <div>

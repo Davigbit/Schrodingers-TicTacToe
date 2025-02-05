@@ -25,13 +25,11 @@ function App() {
 
     const [conn, setConn] = useState(null);
 
-    const [isDisconnecting, setisDisconnecting] = useState(false);
-
-
+    const [otherGrid, setOtherGrid] = useState([0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0]);
 
     peer = initializePeer(peer);
     
-    Recieve(peer, conn, setConn);
+    Recieve(peer, conn, setConn, setisInitiator, setOtherGrid);
     
 
     /* Function that changes modes */
@@ -43,9 +41,6 @@ function App() {
 
     const image = winner === 1 ? catImage : winner === 2 ? graveImage : ghostImage;
 
-
-
-
     /* Builds these React components to the DOM as if it were a HTML file */
     return (
         <div className="App">
@@ -56,8 +51,8 @@ function App() {
                 <input placeholder="Opponent ID"
                        onChange={e => setConId(e.target.value)}/>
                 <button onClick={() => {
-                    setConn(initiateConnection(conId, conn, peer));
-                    setisInitiator(!isInitiator);
+                    setConn(initiateConnection(conId, conn, peer, setisInitiator));
+                    
                 } }>
                     Connect
                 </button>
@@ -72,7 +67,8 @@ function App() {
                 <Message/>
 
                 {/* Main TicTacToe grid */}
-                <TicTacToe mode={mode} winner={winner} setWinner={setWinner} peer={peer} conn={conn}/>
+                <TicTacToe mode={mode} winner={winner} setWinner={setWinner} peer={peer} 
+                conn={conn} isInitiator={isInitiator} setisInitiator={setisInitiator} otherGrid={otherGrid}/>
 
                 {/* Button container */}
                 <div className="button-container">

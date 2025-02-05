@@ -12,12 +12,13 @@ export function initializePeer(peer) {
 	return peer;
 }
 
-export function initiateConnection(conId, conn, peer) {
+export function initiateConnection(conId, conn, peer,setisInitiator) {
 	if (!conn) {
 		console.log(peer);
 		conn = peer.connect(conId);
 		conn.on('open', function() {
 			console.log('connected to ' + conn.peer)
+			setisInitiator(true);
 		}); 
 	} else {
 		console.log('already connected to ' + conn);
@@ -26,20 +27,19 @@ export function initiateConnection(conId, conn, peer) {
 }
 
 
-export function Recieve(peer, conn, setConn, setGrid) {
+export function Recieve(peer, conn, setConn,setisInitiator, setOtherGrid) {
 	if (!conn) {
 		peer.on('connection', function(c) {
 			setConn(c);
+			setisInitiator(false);
 			console.log('connected to ' + c.peer);
 		});
 	} else {
-		conn.on('data', function(data) {
-			setGrid(data);
-		});
-
+		
 		conn.on('close', function() {
 			console.log('connection terminated');
 			setConn(null);
+			setisInitiator(null);
 		})
 	}	
 }
@@ -50,4 +50,8 @@ export function Disconnect(conn, setisDisconnecting) {
 	} else {
 		console.log("You're not connected to anything, dummy!");
 	}
+}
+
+export function send(conn, Grid) {
+	conn.send(Grid);
 }
