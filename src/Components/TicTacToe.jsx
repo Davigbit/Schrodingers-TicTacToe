@@ -40,7 +40,7 @@ export default function TicTacToe({ mode, winner, setWinner, peer,
         conn.on('data', function(data) {
             console.log('recieved data');
             setGrid(data);
-            setIsTurn(!isTurn);
+            setIsTurn(true);
         });
 
     }
@@ -53,7 +53,7 @@ export default function TicTacToe({ mode, winner, setWinner, peer,
         const audio = new Audio(meows[Math.floor(Math.random() * meows.length)]);
         audio.play()
         const newGrid = [...grid];
-        newGrid[index] = (isTurn && isInitiator)  ? 1 : 2;
+        newGrid[index] = ((isTurn) && (isInitiator)) ? 1 : (isTurn && (mode === 1)) ? 1 : 2;
         setGrid(newGrid);
         setIsTurn(isTurn => !isTurn);
 
@@ -111,11 +111,9 @@ export default function TicTacToe({ mode, winner, setWinner, peer,
 
     /* Does a random effect on a random square */
     useEffect(() => {
-        console.log('randomizing!');
         if ((winner || grid.every(element => element === 0)) || (isTurn && mode === 2)) return; 
                                                                     // Exit early if there's a winner or if it is 
-                                                                    // or if it is the player's turn
-
+                                                                   // or if it is the player's turn
         /* If there is a superposition in the grid, make it decay to either O or X */
         function observe() { return Math.ceil(Math.random() * 2); }
         const newGrid = grid.map(element => element === 3 ? element - observe() : element);
@@ -177,10 +175,7 @@ export default function TicTacToe({ mode, winner, setWinner, peer,
                     return newGrid;
                 });
             }
-        if ((JSON.stringify(oldGrid) !== JSON.stringify(grid)) && mode === 2 && conn) {
-            setOldGrid(grid);
-            conn.send(grid);
-        }
+        
 
     }, [isTurn, winner]);
 
@@ -207,6 +202,7 @@ export default function TicTacToe({ mode, winner, setWinner, peer,
     // If playing with a machine, waits one second and decide upon the machine's movement
     useEffect(() => {
         // If it's the computer's turn and the game is not over
+        
         if (!isTurn && (mode === 1) && !winner) {
             const timeoutId = setTimeout(() => {
                 // Find an empty cell for the computer to play
@@ -221,7 +217,15 @@ export default function TicTacToe({ mode, winner, setWinner, peer,
                 }
             }, 1000); // Delay for the computer to make its move (e.g., 1 second)
 
-            return () => clearTimeout(timeoutId);
+
+        
+
+        return () => clearTimeout(timeoutId);
+        }
+
+        if ((JSON.stringify(oldGrid) !== JSON.stringify(grid)) && mode === 2 && conn && !isTurn) {
+            setOldGrid(grid);
+            conn.send(grid);
         }
 
         

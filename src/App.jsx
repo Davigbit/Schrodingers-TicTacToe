@@ -6,7 +6,7 @@ import Legends from "./Components/Legends.jsx";
 import catImage from "./assets/cat.gif"
 import ghostImage from "./assets/ghost.gif"
 import graveImage from "./assets/grave.gif"
-import { initializePeer, initiateConnection, Recieve, Disconnect} from "./Components/Multiplayer.js"
+import { initializePeer, initiateConnection, RecieveConnection, Disconnect} from "./Components/Multiplayer.js"
 
 
 
@@ -29,7 +29,7 @@ function App() {
 
     peer = initializePeer(peer);
     
-    Recieve(peer, conn, setConn, setisInitiator, setOtherGrid);
+    RecieveConnection(peer, conn, setConn, setisInitiator, setOtherGrid);
     
 
     /* Function that changes modes */

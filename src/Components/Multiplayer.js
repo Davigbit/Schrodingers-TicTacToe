@@ -27,7 +27,7 @@ export function initiateConnection(conId, conn, peer,setisInitiator) {
 }
 
 
-export function Recieve(peer, conn, setConn,setisInitiator, setOtherGrid) {
+export function RecieveConnection(peer, conn, setConn,setisInitiator, setOtherGrid) {
 	if (!conn) {
 		peer.on('connection', function(c) {
 			setConn(c);
@@ -35,7 +35,7 @@ export function Recieve(peer, conn, setConn,setisInitiator, setOtherGrid) {
 			console.log('connected to ' + c.peer);
 		});
 	} else {
-		
+
 		conn.on('close', function() {
 			console.log('connection terminated');
 			setConn(null);
