@@ -9,7 +9,7 @@ import sound2 from '../assets/x.mp3'
 
 
 export default function TicTacToe({ mode, winner, setWinner, peer, 
-    conn, isInitiator, setisInitiator, OtherGrid}) {
+    conn, isInitiator, setisInitiator}) {
 
     /* Tic Tac Toe grid with its values following the following:
     0: Empty; 1: O; 2: X; 3: Superposition; 4: Block */
@@ -40,7 +40,13 @@ export default function TicTacToe({ mode, winner, setWinner, peer,
         conn.on('data', function(data) {
             console.log('recieved data');
             setGrid(data);
+            setOldGrid(data); //Done to stop the user from sending the array back immiediatley after it is recieved.
+            const result = checkWinner(data); 
             setIsTurn(true);
+            if (result) {
+                setWinner(result.winner);
+                setWinningIndices(result.indices);
+            }
         });
 
     }
@@ -53,7 +59,7 @@ export default function TicTacToe({ mode, winner, setWinner, peer,
         const audio = new Audio(meows[Math.floor(Math.random() * meows.length)]);
         audio.play()
         const newGrid = [...grid];
-        newGrid[index] = ((isTurn) && (isInitiator)) ? 1 : (isTurn && (mode === 1)) ? 1 : 2;
+        newGrid[index] = ((isTurn) && (isInitiator)) ? 1 : (isTurn && (mode === 0)) ? 1 : 2;
         setGrid(newGrid);
         setIsTurn(isTurn => !isTurn);
 
@@ -67,7 +73,7 @@ export default function TicTacToe({ mode, winner, setWinner, peer,
     /* Puts computer's piece on square and check for winner*/
     const handleComputer = (index) => {
 
-        if (grid[index] !== 0 || winner || (!(mode === 1) && isTurn)) return;
+        if (grid[index] !== 0 || winner || (!(mode === 0) && isTurn)) return;
 
             const newGrid = [...grid];
             newGrid[index] = !isTurn ? 2 : 1;
