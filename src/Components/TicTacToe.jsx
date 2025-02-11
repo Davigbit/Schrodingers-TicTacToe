@@ -59,7 +59,7 @@ export default function TicTacToe({ mode, winner, setWinner, peer,
         const audio = new Audio(meows[Math.floor(Math.random() * meows.length)]);
         audio.play()
         const newGrid = [...grid];
-        newGrid[index] = ((isTurn) && (isInitiator)) ? 1 : (isTurn && (mode === 0)) ? 1 : 2;
+        newGrid[index] = ((isTurn) && (isInitiator)) ? 1 : (isTurn && ((mode === 0) || (mode === 1))) ? 1 : 2;
         setGrid(newGrid);
         setIsTurn(isTurn => !isTurn);
 
