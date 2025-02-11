@@ -5,31 +5,63 @@ import sound0 from '../assets/f.mp3'
 import sound1 from '../assets/s.mp3'
 import sound2 from '../assets/x.mp3'
 
-export default function TicTacToe({ isMachine, winner, setWinner }) {
+
+
+
+export default function TicTacToe({ mode, winner, setWinner, peer, 
+    conn, isInitiator, setisInitiator}) {
 
     /* Tic Tac Toe grid with its values following the following:
     0: Empty; 1: O; 2: X; 3: Superposition; 4: Block */
     const [grid, setGrid] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
-    /* isXNext is a boolean representing if the game is waiting for X to play or not */
-    const [isXNext, setIsXNext] = useState(false);
+    /* A boolean that determines whether or not its the players turn */ 
+    const [isTurn, setIsTurn] = useState(true);
 
     /* winningIndices is an array that stores the 3 indexes that are responsible
     * for the winning position */
     const [winningIndices, setWinningIndices] = useState([]);
+   
+    const[oldGrid, setOldGrid] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+ 
+    const [isMultiplayerBeginning, setisMultiplayerBeginning] = useState([true])
+    
+    if (isInitiator && isMultiplayerBeginning)  {
+        console.log('lol');
+        setisMultiplayerBeginning(false);
+    } else if ((isInitiator === false) && isMultiplayerBeginning) {
+        console.log('lmao');
+        isInitiator= null;
+        setIsTurn(false);
+        setisMultiplayerBeginning(false);
+    }
+
+    if (conn) {
+        conn.on('data', function(data) {
+            console.log('recieved data');
+            setGrid(data);
+            setOldGrid(data); //Done to stop the user from sending the array back immiediatley after it is recieved.
+            const result = checkWinner(data); 
+            setIsTurn(true);
+            if (result) {
+                setWinner(result.winner);
+                setWinningIndices(result.indices);
+            }
+        });
+
+    }
 
     /* Puts player's piece on square and check for winner*/
     const handleClick = (index) => {
+
+        if (grid[index] !== 0 || winner || ((mode === 1 || mode === 2) && !isTurn)) return;
         const meows = [sound0, sound1, sound2];
         const audio = new Audio(meows[Math.floor(Math.random() * meows.length)]);
         audio.play()
-
-        if (grid[index] !== 0 || winner || (isMachine && isXNext)) return;
-
         const newGrid = [...grid];
-        newGrid[index] = isXNext ? 2 : 1;
+        newGrid[index] = ((isTurn) && (isInitiator)) ? 1 : (isTurn && (mode === 0)) ? 1 : 2;
         setGrid(newGrid);
-        setIsXNext(isXNext => !isXNext);
+        setIsTurn(isTurn => !isTurn);
 
         const result = checkWinner(newGrid);
         if (result) {
@@ -41,12 +73,12 @@ export default function TicTacToe({ isMachine, winner, setWinner }) {
     /* Puts computer's piece on square and check for winner*/
     const handleComputer = (index) => {
 
-        if (grid[index] !== 0 || winner || (!isMachine && !isXNext)) return;
+        if (grid[index] !== 0 || winner || (!(mode === 0) && isTurn)) return;
 
             const newGrid = [...grid];
-            newGrid[index] = isXNext ? 2 : 1;
+            newGrid[index] = !isTurn ? 2 : 1;
             setGrid(newGrid);
-            setIsXNext(isXNext => !isXNext);
+            setIsTurn(isTurn => !isTurn);
 
             const result = checkWinner(newGrid);
             if (result) {
@@ -85,8 +117,9 @@ export default function TicTacToe({ isMachine, winner, setWinner }) {
 
     /* Does a random effect on a random square */
     useEffect(() => {
-        if (winner || grid.every(element => element === 0)) return; // Exit early if there's a winner or if it is starting
-
+        if ((winner || grid.every(element => element === 0)) || (isTurn && mode === 2)) return; 
+                                                                    // Exit early if there's a winner or if it is 
+                                                                   // or if it is the player's turn
         /* If there is a superposition in the grid, make it decay to either O or X */
         function observe() { return Math.ceil(Math.random() * 2); }
         const newGrid = grid.map(element => element === 3 ? element - observe() : element);
@@ -148,8 +181,9 @@ export default function TicTacToe({ isMachine, winner, setWinner }) {
                     return newGrid;
                 });
             }
+        
 
-    }, [isXNext, winner]);
+    }, [isTurn, winner]);
 
     // Transforms the grid array into an array of React components.
     const gridElements = grid.map((element, index) => (
@@ -167,14 +201,15 @@ export default function TicTacToe({ isMachine, winner, setWinner }) {
     const resetGame = () => {
         setGrid([0, 0, 0, 0, 0, 0, 0, 0, 0]);
         setWinner(null);
-        setIsXNext(false); // Start with Player X
+        setIsTurn(true); // Start with Player X
         setWinningIndices([]);
     };
 
     // If playing with a machine, waits one second and decide upon the machine's movement
     useEffect(() => {
         // If it's the computer's turn and the game is not over
-        if (isXNext && isMachine && !winner) {
+        
+        if (!isTurn && (mode === 1) && !winner) {
             const timeoutId = setTimeout(() => {
                 // Find an empty cell for the computer to play
                 const emptyCells = grid
@@ -188,14 +223,26 @@ export default function TicTacToe({ isMachine, winner, setWinner }) {
                 }
             }, 1000); // Delay for the computer to make its move (e.g., 1 second)
 
-            return () => clearTimeout(timeoutId);
+
+        
+
+        return () => clearTimeout(timeoutId);
         }
-    }, [isXNext, isMachine, winner, grid]);
+
+        if ((JSON.stringify(oldGrid) !== JSON.stringify(grid)) && mode === 2 && conn && !isTurn) {
+            setOldGrid(grid);
+            conn.send(grid);
+        }
+
+        
+    }, [isTurn, mode, winner, grid]);
 
     // If the player's adversary changes, reset game
     useEffect(() => {
         resetGame();
-    }, [isMachine]);
+    }, [mode]);
+
+    
 
     return (
         <div>
@@ -206,7 +253,7 @@ export default function TicTacToe({ isMachine, winner, setWinner }) {
                 {winner && <div className="winner-message">{`THE CAT IS ${winner === 1 ? 'ALIVE' : 'DEAD'}!`}</div>}
                 {/* Displays turn's message */}
                 {!winner && <div className="turn-message">
-                    {`IS IT ${isXNext ? 'DEAD? (X)' : 'ALIVE? (O)'}`}
+                    {`IS IT ${!isTurn ? 'DEAD? (X)' : 'ALIVE? (O)'}`}
                 </div>}
                 <div className="grid-container">
                     {gridElements}
